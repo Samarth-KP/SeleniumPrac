@@ -1,7 +1,9 @@
 package utilities;
 
+import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -9,7 +11,7 @@ import au.com.bytecode.opencsv.CSVReader;
 
 public class ReadCsvExample {
 
-	public static void main(String[] args) throws IOException {
+/*	public static void main(String[] args) throws IOException {
 		CSVReader reader = new CSVReader(new FileReader("./ReadCsv.csv"));
 		
 		List <String[]> li = reader.readAll();
@@ -34,6 +36,29 @@ public class ReadCsvExample {
 			System.out.println("  ");
 		}
 
+	} */
+	
+	public Object[][] ReadCsv() throws IOException{
+		
+		String csvFile = "ReadCsv.csv" ;
+		BufferedReader br = null;
+		String line = "";
+		String csvSplitBy = ",";
+		
+		List<Object[]> data = new ArrayList<>();
+		
+		try {
+			br = new BufferedReader(new FileReader(csvFile));
+			while((line = br.readLine())!= null) {
+				String[] rowData = line.split(csvSplitBy);
+				data.add(rowData);
+			}
+		} finally {
+			if(br != null) {
+				br.close();
+			}
+		}
+		return data.toArray(new Object[0][]);
 	}
 
 }
